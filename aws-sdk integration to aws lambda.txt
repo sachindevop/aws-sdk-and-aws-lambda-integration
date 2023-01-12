@@ -1,0 +1,8 @@
+mkdir -p aws-sdk-layer/nodejs
+cd aws-sdk-layer/nodejs
+npm install aws-sdk
+zip -r ../package.zip ../
+cat package-lock.json
+aws lambda publish-layer-version --layer-name node_sdk --description "My layer" --license-info "MIT" --compatible-runtimes nodejs14.x --zip-file fileb://../package.zip --region <specify a region>
+copy the your arn and function name and paste them into the below command.
+aws lambda update-function-configuration --function-name my-function --layers arn:aws:lambda:us-east-2:123456789012:layer:node_sdk:1 --region <specify a region>
